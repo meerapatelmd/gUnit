@@ -1,4 +1,7 @@
+#' Get all the tab names in the Google Sheet
+#' @param gsheet_metadata gsheet_metadata
+#' @export
 tabnames_gs <-
-        function(gsheet_data) {
-                gsheet_data$ws$ws_title
+        function(gsheet_metadata) {
+                gsheet_metadata$ws$ws_title
         }
