@@ -22,7 +22,7 @@ write_gs <-
                                 )
                         }
                 }
-                Sys.sleep(10)
+                Sys.sleep(5)
 
                 if (rm_Sheet1 == TRUE) {
                         googlesheets::gs_ws_delete(gsheet_metadata, ws = "Sheet1")

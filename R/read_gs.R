@@ -13,7 +13,7 @@ read_gs <-
                                                           ws = i,
                                                           check.names = TRUE,
                                                           col_types = paste(rep("c", ncol_gs(gsheet_metadata)[i]), collapse = ""))
-                                Sys.sleep(10)
+                                Sys.sleep(5)
                         }
                         names(x) <- tabnames_gs(gsheet_metadata)
                         return(x)
