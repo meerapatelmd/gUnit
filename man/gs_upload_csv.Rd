@@ -4,7 +4,7 @@
 \alias{gs_upload_csv}
 \title{Write to new Google Sheet}
 \usage{
-gs_upload_csv(csv_filename, new_gs_name, system.sleep)
+gs_upload_csv(csv_filename, new_gs_name, system.sleep = 0.3)
 }
 \arguments{
 \item{csv_filename}{full path to file to upload}
@@ -12,8 +12,6 @@ gs_upload_csv(csv_filename, new_gs_name, system.sleep)
 \item{new_gs_name}{name of new gs}
 
 \item{system.sleep}{time in seconds for system sleep}
-
-\item{rm_Sheet1}{should Sheet1 be deleted?}
 }
 \description{
 Write to new Google Sheet
