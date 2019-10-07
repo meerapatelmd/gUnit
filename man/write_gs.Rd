@@ -4,7 +4,7 @@
 \alias{write_gs}
 \title{Write to new Google Sheet}
 \usage{
-write_gs(new_gs_name, data, rm_Sheet1 = TRUE)
+write_gs(new_gs_name, data, rm_Sheet1 = TRUE, system.sleep = 5)
 }
 \arguments{
 \item{new_gs_name}{character string of the new Google Sheet name}
@@ -12,6 +12,8 @@ write_gs(new_gs_name, data, rm_Sheet1 = TRUE)
 \item{data}{data to be written}
 
 \item{rm_Sheet1}{should Sheet1 be deleted?}
+
+\item{system.sleep}{time in seconds for system sleep}
 }
 \description{
 Write to new Google Sheet
