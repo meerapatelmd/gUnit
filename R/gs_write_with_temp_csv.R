@@ -5,8 +5,17 @@
 #' @importFrom googlesheets gs_upload
 #' @export
 
-gs_upload_csv <-
-        function(csv_filename, new_gs_name, system.sleep = 0.3) {
+gs_write_with_temp_csv <-
+        function(data, new_gs_name, system.sleep = 0.3) {
+                data_name <- deparse(substitute(data))
+                if (is.data.frame(data)) {
+                        data <- list(data_name = data)
+                        names(data) <- data_name
+                }
+
+                for (i in 1:length(data)) {
+                        dataframe <- data[[i]]
+                }
                 gsheet_metadata <- googlesheets::gs_upload(file = csv_filename,
                                         sheet_title = new_gs_name)
                 Sys.sleep(system.sleep)
