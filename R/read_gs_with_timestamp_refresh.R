@@ -26,15 +26,18 @@ read_gs_with_timestamp_and_id_refresh <-
 
                 for (i in 1:nrow(data)) {
                         ID <- data %>%
-                                dplyr::select(dplyr::contains("ID")) %>%
+                                dplyr::select(dplyr::contains("_ID")) %>%
                                 dplyr::filter(row_number() == i) %>%
                                 unlist()
                         if (is.na(ID)|ID == "") {
                                 index <- i
-                                col_letter <- LETTERS[grep("ID", colnames(data))]
+                                col_letter <- LETTERS[grep("_ID", colnames(data))]
                                 anchor <- paste0(col_letter, index)
 
-                                input <- 1 + as.integer(ID)
+                                input <- 1 + as.integer(data %>%
+                                                                dplyr::select(dplyr::contains("_ID")) %>%
+                                                                dplyr::filter(row_number() == (i-1)) %>%
+                                                                unlist())
 
                                 googlesheets::gs_edit_cells(gXtra::get_gsheet_metadata(gsheet_id),
                                                             anchor = anchor,
