@@ -5,7 +5,7 @@
 #' @import googlesheets
 #' @export
 
-read_gs_with_timestamp_refresh <-
+read_gs_with_timestamp_and_id_refresh <-
         function(gsheet_id) {
                 data <- gXtra::read_gs(gXtra::get_gsheet_metadata(gsheet_id))
                 for (i in 1:nrow(data)) {
@@ -20,6 +20,25 @@ read_gs_with_timestamp_refresh <-
                                 googlesheets::gs_edit_cells(gXtra::get_gsheet_metadata(gsheet_id),
                                                             anchor = anchor,
                                                             input = mirroR::get_timestamp())
+                                data <- gXtra::read_gs(gXtra::get_gsheet_metadata(gsheet_id))
+                        }
+                }
+
+                for (i in 1:nrow(data)) {
+                        ID <- data %>%
+                                dplyr::select(dplyr::contains("ID")) %>%
+                                dplyr::filter(row_number() == i) %>%
+                                unlist()
+                        if (is.na(ID)|ID == "") {
+                                index <- i
+                                col_letter <- LETTERS[grep("ID", colnames(data))]
+                                anchor <- paste0(col_letter, index)
+
+                                input <- 1 + as.integer(ID)
+
+                                googlesheets::gs_edit_cells(gXtra::get_gsheet_metadata(gsheet_id),
+                                                            anchor = anchor,
+                                                            input = input)
                                 data <- gXtra::read_gs(gXtra::get_gsheet_metadata(gsheet_id))
                         }
                 }
