@@ -5,25 +5,30 @@
 #' @import googlesheets
 #' @export
 
-read_gs_with_timestamp_refresh <-
+read_gs_with_id_refresh <-
         function(gsheet_id) {
                 data <- gXtra::read_gs(gXtra::get_gsheet_metadata(gsheet_id))
-                data <- somersaulteR::mutate_all_na_to_blank(data)
+                id_column_name <- grep("_ID", colnames(data), value = TRUE)
+
+                id_column_name <- enquo(id_column_name)
+
+                old_id_column_values <-
+                        data %>%
+                        dplyr::select(!!id_column_name) %>%
+                        unlist()
+
+                new_id_column_values <- caterpillaR::carry_forward_and_add_one(old_id_column_values)
 
                 for (i in 1:nrow(data)) {
-                        TIMESTAMP <- data %>%
-                                dplyr::select(dplyr::contains("TIMESTAMP")) %>%
-                                dplyr::filter(row_number() == i) %>%
-                                unlist()
-
-                        if (is.na(TIMESTAMP)|TIMESTAMP == ""|TIMESTAMP == "NA") {
+                        ID <- old_id_column_values[i]
+                        if (is.na(ID)|ID == ""|ID == "NA") {
                                 index <- i + 1
-                                col_letter <- LETTERS[grep("TIMESTAMP", colnames(data))]
+                                col_letter <- LETTERS[grep("ID", colnames(data))]
                                 anchor <- paste0(col_letter, index)
 
                                 googlesheets::gs_edit_cells(gXtra::get_gsheet_metadata(gsheet_id),
                                                             anchor = anchor,
-                                                            input = mirroR::get_timestamp())
+                                                            input = new_id_column_values[i])
 
                                 Sys.sleep(3)
                                 data <- gXtra::read_gs(gXtra::get_gsheet_metadata(gsheet_id))

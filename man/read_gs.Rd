@@ -4,7 +4,7 @@
 \alias{read_gs}
 \title{Reads Google Sheet as a list of dataframes or a single dataframe}
 \usage{
-read_gs(gsheet_metadata)
+read_gs(gsheet_metadata, system.sleep = 2)
 }
 \arguments{
 \item{gsheet_metadata}{gsheet_metadata}
