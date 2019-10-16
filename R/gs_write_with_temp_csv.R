@@ -2,6 +2,7 @@
 #' @param csv_filename full path to file to upload
 #' @param new_gs_name name of new gs
 #' @param system.sleep time in seconds for system sleep
+#' @import dplyr
 #' @importFrom googlesheets gs_upload
 #' @export
 
@@ -13,11 +14,18 @@ gs_write_with_temp_csv <-
                         names(data) <- data_name
                 }
 
+                gsheet_metadata_list <- list()
                 for (i in 1:length(data)) {
                         dataframe <- data[[i]]
+                        tmp_fn <- tempfile(fileext = ".csv")
+                        readr::write_csv(dataframe, tmp_fn)
+                        gsheet_metadata_list[[i]] <- googlesheets::gs_upload(file = tmp_fn,
+                                                                   sheet_title = new_gs_name)
+                        Sys.sleep(system.sleep)
+                        names(gsheet_metadata_list)[i] <- names(data)[i]
+                        unlink()
                 }
-                gsheet_metadata <- googlesheets::gs_upload(file = csv_filename,
-                                        sheet_title = new_gs_name)
-                Sys.sleep(system.sleep)
-                return(gsheet_metadata$sheet_key)
+
+                gsheet_keys <- sapply(gsheet_metadata_list, dplyr::select, sheet_key)
+                return(gsheet_keys)
         }
