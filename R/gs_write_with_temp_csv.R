@@ -23,7 +23,7 @@ gs_write_with_temp_csv <-
                                                                    sheet_title = new_gs_name)
                         Sys.sleep(system.sleep)
                         names(gsheet_metadata_list)[i] <- names(data)[i]
-                        unlink()
+                        unlink(tmp_fn)
                 }
 
                 gsheet_keys <- sapply(gsheet_metadata_list, dplyr::select, sheet_key)
