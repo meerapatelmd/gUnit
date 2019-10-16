@@ -25,7 +25,5 @@ gs_write_with_temp_csv <-
                         names(gsheet_metadata_list)[i] <- names(data)[i]
                         unlink(tmp_fn)
                 }
-
-                gsheet_keys <- sapply(gsheet_metadata_list, dplyr::select, sheet_key)
-                return(gsheet_keys)
+                return(gsheet_metadata_list)
         }
