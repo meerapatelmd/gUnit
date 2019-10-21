@@ -1,6 +1,7 @@
 #' Reads Google Sheet as a list of dataframes or a single dataframe
 #' @param gsheet_metadata gsheet_metadata
 #' @import googlesheets
+#' @import somersaulteR
 #' @export
 #'
 
@@ -14,8 +15,8 @@ read_gs <-
                                 x[[i]] <-
                                 googlesheets::gs_read_csv(gsheet_metadata,
                                                           ws = i,
-                                                          check.names = TRUE,
-                                                          col_types = cols(.default = col_character()))
+                                                          check.names = TRUE) %>%
+                                        somersaulteR::call_mr_clean()
                                 Sys.sleep(system.sleep)
                         }
                         names(x) <- tabnames_gs(gsheet_metadata)
@@ -24,9 +25,8 @@ read_gs <-
                         x <-
                         googlesheets::gs_read_csv(gsheet_metadata,
                                                   ws = 1,
-                                                  check.names = TRUE,
-                                                  col_types = cols(col_character())
-                                                  )
+                                                  check.names = TRUE) %>%
+                                somersaulteR::call_mr_clean()
                         return(x)
                 }
 
