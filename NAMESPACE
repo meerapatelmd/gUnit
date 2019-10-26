@@ -3,6 +3,8 @@
 export(get_gsheet_id_from_name)
 export(get_gsheet_metadata)
 export(gs_add_tab)
+export(gs_m)
+export(gs_m_by_name)
 export(gs_ss_by_names)
 export(gs_upload_csv)
 export(gs_write_with_temp_csv)
