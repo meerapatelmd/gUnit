@@ -7,12 +7,16 @@
 gs_add_tab <-
         function(dataframe, gsheet_name, tab_name) {
                 gsheet_id <- get_gsheet_id_from_name(gsheet_name)
+                gsheet_metadata <- googlesheets::gs_key(gsheet_id)
 
-                gs_ss <- googlesheets::gs_ws_new(googlesheets::gs_key(gsheet_id), ws_title = tab_name, input = colnames(dataframe), byrow = TRUE)
+                tab_names <- gs_tabnames(gsheet_metadata)
 
-                gs_browse(gs_ss, ws = tab_name)
-                typewriteR::tell_me("Please add blank row to the new", tab_name, "and")
-                typewriteR::stop_and_enter()
+                if (!(tab_name %in% tab_names)) {
+                        gsheet_metadata <- googlesheets::gs_ws_new(googlesheets::gs_key(gsheet_id), ws_title = tab_name, input = colnames(dataframe), byrow = TRUE)
+                        gs_browse(gs_ss, ws = tab_name)
+                        typewriteR::tell_me("Please add blank row to the new", tab_name, "and")
+                        typewriteR::stop_and_enter()
+                }
 
                 for (i in 1:nrow(dataframe)) {
                         cat("\n")
