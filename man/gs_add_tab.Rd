@@ -4,7 +4,14 @@
 \alias{gs_add_tab}
 \title{Adds a dataframe to a new tab with the given name to the gsheet identified by name}
 \usage{
-gs_add_tab(dataframe, gsheet_name, tab_name)
+gs_add_tab(
+  dataframe,
+  gsheet_name,
+  tab_name,
+  system.sleep = 3,
+  log = TRUE,
+  log_comment = ""
+)
 }
 \description{
 Adds a dataframe to a new tab with the given name to the gsheet identified by name

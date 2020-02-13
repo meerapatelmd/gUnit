@@ -5,6 +5,6 @@
 #'
 gs_ss_by_name <-
         function(gsheet_name) {
-                gsheet_id <- get_gsheet_id_from_name(gsheet_name)
+                gsheet_id <- gs_id_from_name(gsheet_name)
                 return(googlesheets::gs_key(gsheet_id))
         }

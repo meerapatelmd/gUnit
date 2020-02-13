@@ -7,7 +7,7 @@ gs_ss_by_names <-
         function(gsheet_names) {
                 x <- list()
                 for (i in 1:length(gsheet_names)) {
-                        gsheet_id <- get_gsheet_id_from_name(gsheet_names[i])
+                        gsheet_id <- gs_id_from_name(gsheet_names[i])
                         if (!(is.na(gsheet_id))) {
                                 x[[i]] <- googlesheets::gs_key(gsheet_id)
                                 names(x)[i] <- gsheet_names[i]

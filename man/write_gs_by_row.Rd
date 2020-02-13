@@ -4,8 +4,7 @@
 \alias{write_gs_by_row}
 \title{Write to new Google Sheet}
 \usage{
-write_gs_by_row(new_gs_name, data, rm_Sheet1 = TRUE,
-  system.sleep = 0.3)
+write_gs_by_row(new_gs_name, data, rm_Sheet1 = TRUE, system.sleep = 0.3)
 }
 \arguments{
 \item{new_gs_name}{character string of the new Google Sheet name}
